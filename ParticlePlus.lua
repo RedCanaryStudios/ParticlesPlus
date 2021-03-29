@@ -42,7 +42,17 @@ Presets.Explosion = {
         
         action:Play()
         
-        action.Completed:Connect(self.Callback)
+        action.Completed:Connect(function()
+            local action2 = TweenService:Create(Explosion, TweenInfo.new(0.5), {Transparency = 1})
+            
+            action2:Play()
+            
+            action2.Completed:Connect(function()
+                Explosion:Destroy()
+                
+                self.Callback()
+            end)
+        end)
         
     end;
     
